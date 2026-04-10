@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link, BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
-import './solution.css'; // Assuming you have a CSS file for styling
-// Uncomment the import below in your local code:
+import './solution.css'; 
 import Navbar from '../navbar/navbar';
 
 
@@ -113,7 +112,6 @@ const ResolveProblemContent = () => {
     }
   };
 
-  // 4. Final Submit (Only allowed if AI says is_resolved: true)
   const handleSubmitResolution = async () => {
     if (!aiResult || !aiResult.is_resolved) return;
 
@@ -132,7 +130,6 @@ const ResolveProblemContent = () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       }).catch(e => console.log('Resolved image save skipped/failed', e));
 
-      // Navigate back to profile or problem details
       navigate('/profile');
 
     } catch (err) {

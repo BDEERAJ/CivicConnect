@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../navbar/navbar'; // Adjust path if needed
-import './chatlog.css'; // Assuming you have a CSS file for styling
+import Navbar from '../navbar/navbar'; 
+import './chatlog.css'; 
 const Chat = () => {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ const Chat = () => {
       try {
         const response = await axios.get('https://civicconnect-m1vy.onrender.com/api/users/chat/contacts', {
           headers: {
-            Authorization: `Bearer ${token}` // 👈 Securely passing the token!
+            Authorization: `Bearer ${token}`
           }
         });
         setContacts(response.data);

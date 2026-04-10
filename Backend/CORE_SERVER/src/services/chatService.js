@@ -40,13 +40,11 @@ class ChatService {
 
     // Get a list of unique users this person has chatted with
     async getChatContacts(userId) {
-        // 1. Fetch all messages where the user is either the sender OR the receiver
-        // Sorting by newest first ensures the most recent chats are processed first
+
         const messages = await Message.find({
             $or: [{ senderId: userId }, { receiverId: userId }]
         }).sort({ createdAt: -1 });
 
-        // 2. Use a Set to store unique contact IDs (Sets automatically ignore duplicates)
         const uniqueContactIds = new Set();
 
         messages.forEach(msg => {
@@ -61,7 +59,6 @@ class ChatService {
         });
 
         // 3. Fetch the profile details for those unique IDs
-        // We use .select() to only send the ID and username (hiding passwords/emails)
         const contacts = await User.find({
             _id: { $in: Array.from(uniqueContactIds) }
         }).select('username _id');

@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link, BrowserRouter, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../navbar/navbar';
-import './problem.css'; // Assuming you have a CSS file for styling
-
+import './problem.css'; 
 const ProblemsContent = () => {
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +24,6 @@ const ProblemsContent = () => {
         : `https://civicconnect-m1vy.onrender.com/api/problems`;
 
       const response = await axios.get(url);
-      console.log("Fetched problems:", response.data);
       setProblems(response.data);
     } catch (err) {
       setError('Failed to load problems. Is the server running?');
@@ -52,7 +50,6 @@ const ProblemsContent = () => {
         setLocationSuggestions(res.data);
         setIsDropdownOpen(true);
       } catch (e) {
-        console.error("OpenStreetMap fetch failed", e);
       }
     };
 
@@ -74,7 +71,6 @@ const ProblemsContent = () => {
     fetchProblems(''); 
   };
 
-  // FIX: Apply BOTH status and location filters properly
   const displayedProblems = problems.filter(problem => {
     // 1. Status Filter
     const matchesStatus = showResolved ? problem.status === 'Resolved' : problem.status !== 'Resolved';
@@ -89,212 +85,7 @@ const ProblemsContent = () => {
 
   return (
     <>
-      <style>{`
-        .civic-problems-layout {
-          min-height: 100vh;
-          background-color: #F7FAFC; 
-          font-family: 'Inter', system-ui, sans-serif;
-          padding-bottom: 50px;
-        }
-        
-        .civic-problems-container {
-          max-width: 1000px;
-          margin: 0 auto;
-          padding: 40px 20px;
-        }
-
-        .civic-problems-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-end;
-          margin-bottom: 30px;
-          flex-wrap: wrap;
-          gap: 20px;
-        }
-        .civic-problems-title {
-          color: #2B6CB0; 
-          font-size: 2rem;
-          font-weight: 800;
-          margin: 0 0 10px 0;
-        }
-        
-        .civic-problems-controls {
-          display: flex;
-          gap: 15px;
-          align-items: center;
-          flex-wrap: wrap;
-        }
-
-        .civic-problems-search-wrapper {
-          position: relative;
-          width: 300px;
-        }
-        .civic-problems-search-input {
-          width: 100%;
-          padding: 10px 35px 10px 15px;
-          border: 1px solid #E2E8F0;
-          border-radius: 8px;
-          font-size: 0.95rem;
-          outline: none;
-          transition: border-color 0.2s;
-          box-sizing: border-box;
-        }
-        .civic-problems-search-input:focus { border-color: #2B6CB0; }
-        
-        .civic-problems-clear-btn {
-          position: absolute;
-          right: 10px;
-          top: 50%;
-          transform: translateY(-50%);
-          background: none;
-          border: none;
-          cursor: pointer;
-          color: #A0AEC0;
-          font-weight: bold;
-        }
-        
-        .civic-problems-dropdown {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background-color: white;
-          border: 1px solid #E2E8F0;
-          border-radius: 8px;
-          margin-top: 5px;
-          box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-          z-index: 100;
-          max-height: 250px;
-          overflow-y: auto;
-        }
-        .civic-problems-dropdown-item {
-          padding: 12px 15px;
-          cursor: pointer;
-          border-bottom: 1px solid #F7FAFC;
-          font-size: 0.9rem;
-          color: #4A5568;
-        }
-        .civic-problems-dropdown-item:hover {
-          background-color: #F7FAFC; 
-          color: #2B6CB0;
-        }
-
-        .civic-problems-toggle-btn {
-          padding: 10px 20px;
-          border-radius: 8px;
-          font-weight: bold;
-          border: none;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-        .civic-problems-toggle-active { background-color: #2B6CB0; color: white; }
-        .civic-problems-toggle-resolved { background-color: #48BB78; color: white; }
-        .civic-problems-toggle-inactive { background-color: #E2E8F0; color: #718096; }
-
-        .civic-problems-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-          gap: 25px;
-        }
-        
-        .civic-problems-card {
-          background-color: white;
-          border-radius: 12px;
-          overflow: hidden;
-          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-          display: flex;
-          flex-direction: column;
-          transition: transform 0.2s;
-          border-top: 5px solid #2B6CB0;
-        }
-        .civic-problems-card-resolved { border-top-color: #48BB78; }
-        .civic-problems-card-pending { border-top-color: #ED8936; }
-        
-        .civic-problems-card:hover { transform: translateY(-4px); }
-        
-        .civic-problems-card-body {
-          padding: 25px 30px;
-          flex-grow: 1;
-          display: flex;
-          flex-direction: column;
-        }
-        .civic-problems-badges {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 15px;
-        }
-        .civic-problems-badge {
-          padding: 4px 10px;
-          border-radius: 4px;
-          font-size: 0.75rem;
-          font-weight: bold;
-          color: white;
-        }
-        .civic-problems-badge-pending { background-color: #ED8936; } 
-        .civic-problems-badge-resolved { background-color: #48BB78; } 
-        .civic-problems-badge-location { background-color: #718096; }
-        
-        .civic-problems-card-title {
-          margin: 0 0 10px 0;
-          color: #2D3748;
-          font-size: 1.4rem;
-          font-weight: bold;
-        }
-        .civic-problems-card-desc {
-          color: #4A5568;
-          font-size: 1rem;
-          margin: 0 0 20px 0;
-          line-height: 1.6;
-          flex-grow: 1;
-        }
-        
-        .civic-problems-btn-details {
-          display: block;
-          text-align: center;
-          background-color: #F7FAFC;
-          color: #2B6CB0;
-          text-decoration: none;
-          padding: 12px;
-          border-radius: 6px;
-          font-weight: bold;
-          transition: background-color 0.2s;
-          border: 1px solid #E2E8F0;
-          margin-bottom: 20px;
-        }
-        .civic-problems-btn-details:hover {
-          background-color: #E2E8F0;
-        }
-
-        .civic-problems-card-footer {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-top: 1px solid #EDF2F7;
-          padding-top: 15px;
-          font-size: 0.9rem;
-          color: #718096;
-        }
-        
-        .civic-problems-votes-container {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-        }
-        .civic-problems-upvotes {
-          color: #48BB78;
-          font-weight: bold;
-          display: flex;
-          align-items: center;
-          gap: 5px;
-        }
-        .civic-problems-downvotes {
-          color: #E53E3E;
-          font-weight: bold;
-          display: flex;
-          align-items: center;
-          gap: 5px;
-        }
-      `}</style>
+    
 
       <div className="civic-problems-layout">
         <Navbar />

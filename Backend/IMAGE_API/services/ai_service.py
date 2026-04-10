@@ -49,15 +49,11 @@ Return ONLY a valid JSON object using this exact schema:
             [prompt, img],
             generation_config={"response_mime_type": "application/json"}
         )
-        print("[AI Service] Raw response text:", response.text)
         
         try:
             result = json.loads(response.text)
-            print("[AI Service] Parsed JSON:", result)
             return result
         except json.JSONDecodeError as e:
-            print(f"[AI Service] JSON Parse Error: {e}")
-            print(f"[AI Service] Response was: {response.text[:500]}")
             raise ValueError(f"Gemini returned invalid JSON: {response.text[:200]}")
 
     def verify_resolution(self, original_bytes: bytes, resolved_bytes: bytes) -> dict:

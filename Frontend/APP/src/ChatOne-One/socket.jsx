@@ -17,11 +17,9 @@ class SocketService {
       });
 
       this.socket.on('connect', () => {
-        console.log('✅ Connected to WebSocket server:', this.socket.id);
       });
 
       this.socket.on('connect_error', (err) => {
-        console.error('❌ WebSocket connection error:', err.message);
       });
     }
   }
@@ -33,7 +31,6 @@ class SocketService {
     if (this.socket) {
       this.socket.disconnect();
       this.socket = null;
-      console.log('🔌 Disconnected from WebSocket server');
     }
   }
 
@@ -117,6 +114,4 @@ class SocketService {
   }
 }
 
-// We export a NEW instance of the class. 
-// Every component that imports this will receive the EXACT SAME instance (Singleton pattern).
 export default new SocketService();

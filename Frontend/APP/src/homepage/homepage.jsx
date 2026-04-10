@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, BrowserRouter, useLocation } from 'react-router-dom';
-import './homepage.css'; // Assuming you have a CSS file for styling
+import './homepage.css'; 
  import Navbar from '../navbar/navbar';
 
 const HomeContent = () => {

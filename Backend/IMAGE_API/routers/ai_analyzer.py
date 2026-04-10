@@ -2,8 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends, UploadFile, File
 from pydantic import BaseModel
 from http import HTTPStatus
 
-# Import your newly created service and your dependency injector
-# (Adjust these import paths based on your actual folder structure)
+
 from services.ai_service import GeminiAnalyzerService 
 from dependencies import get_ai_service 
 
@@ -36,9 +35,7 @@ async def analyze_problem_route(
     try:
         # Read the bytes and pass directly to your service
         image_bytes = await file.read()
-        print(f"[AI] Analyzing image, size: {len(image_bytes)} bytes")
         result = ai_service.analyze_problem(image_bytes)
-        print(f"[AI] Analysis result: {result}")
         
         # Ensure result has all required fields
         if not all(key in result for key in ["problem_type", "confidence", "description", "suggested_solution"]):

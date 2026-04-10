@@ -37,14 +37,11 @@ async def upload_image_post(
 
     # Read file content (async)
     content = await file.read()
-    print(f"[Images] Saving image: {filename}, size: {len(content)} bytes")
     
     try:
         storage_service.save_file(content, filename=filename)
-        print(f"[Images] Successfully saved: {filename}")
         return {"status": "success", "filename": filename}
     except Exception as e:
-        print(f"[Images ERROR] Failed to save {filename}: {str(e)}")
         raise HTTPException(status_code=HTTPStatus.INTERNAL_SERVER_ERROR, detail=f"Failed to save image: {str(e)}")
 
 @router.get("/{filename}", status_code=HTTPStatus.OK)

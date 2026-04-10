@@ -6,5 +6,4 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true }
 }, { timestamps: true });
 
-// NO pre-save hooks. NO methods. Just pure data structure.
 export default mongoose.model('User', userSchema);

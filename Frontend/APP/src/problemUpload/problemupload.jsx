@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-// Uncomment the import below in your local code:
 import Navbar from '../navbar/navbar';
-import './problemupload.css'; // Assuming you have a CSS file for styling
+import './problemupload.css'; 
 
 const AddProblem = () => {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ const AddProblem = () => {
   const [title, setTitle] = useState('');
   const [location, setLocation] = useState('');
   const [category, setCategory] = useState('');
-  const [importance, setImportance] = useState('Medium'); // Added Importance state
+  const [importance, setImportance] = useState('Medium'); 
   const [description, setDescription] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState('');
@@ -51,7 +50,6 @@ const AddProblem = () => {
         setLocationSuggestions(res.data);
         setIsDropdownOpen(true);
       } catch (e) {
-        console.error("OpenStreetMap fetch failed", e);
       }
     };
 
@@ -65,7 +63,6 @@ const AddProblem = () => {
     setIsDropdownOpen(false);
   };
 
-  // Close dropdown if clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchWrapperRef.current && !searchWrapperRef.current.contains(event.target)) {
@@ -94,7 +91,6 @@ const AddProblem = () => {
     formData.append('file', file);
 
     try {
-      // 🧠 Call your FastAPI microservice to run Gemini analysis
       const response = await axios.post('https://civicconnect-ai-service.onrender.com/api/ai/analyze', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
@@ -112,7 +108,6 @@ const AddProblem = () => {
       });
 
     } catch (err) {
-      console.error('AI Analysis failed:', err);
       // We don't block the user if AI fails; they can still type manually
       setError('AI auto-fill is currently unavailable. You can still fill out the form manually.');
     } finally {
@@ -163,7 +158,6 @@ const AddProblem = () => {
       navigate('/problems');
 
     } catch (err) {
-      console.error('Submission failed:', err);
       setError(err.response?.data?.message || 'Failed to submit problem. Please try again.');
       setIsSubmitting(false);
     }
@@ -306,7 +300,6 @@ const AddProblem = () => {
                 required
               />
               
-              {/* Optional UI: Show AI's suggested solution if available */}
               {aiInsights?.suggestedSolution && (
                 <div className="civic-ai-insights">
                   <h4>✨ AI Suggested Solution (Confidence: {aiInsights.confidence}%)</h4>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Navbar from '../navbar/navbar';
-import './feedback.css'; // Assuming you have a CSS file for styling
+import './feedback.css'; 
 const Feedback = () => {
   const [category, setCategory] = useState('General');
   const [message, setMessage] = useState('');
@@ -23,7 +23,6 @@ const Feedback = () => {
     setErrorMessage('');
 
     try {
-      // Post the feedback to your Node.js backend
       await axios.post(
         'https://civicconnect-m1vy.onrender.com/api/feedback',
         { category, message },
@@ -33,7 +32,6 @@ const Feedback = () => {
       setCategory('General');
       setMessage('');
       
-      // Reset success message after 5 seconds
       setTimeout(() => {
         setStatus('idle');
       }, 5000);

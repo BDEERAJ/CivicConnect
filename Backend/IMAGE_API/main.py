@@ -5,7 +5,6 @@ from routers.mongo_images import router as images_router
 
 app = FastAPI()
 
-# Enable CORS for all origins (or restrict to specific ones)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allow all origins in development; restrict in production

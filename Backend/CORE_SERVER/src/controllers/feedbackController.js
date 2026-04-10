@@ -18,7 +18,6 @@ export const submitFeedback = async (req, res) => {
                 const decoded = jwt.verify(token, process.env.JWT_SECRET);
                 userId = decoded.id;
             } catch (error) {
-                // Invalid token is not fatal for anonymous feedback.
             }
         }
 

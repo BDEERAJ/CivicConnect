@@ -39,9 +39,7 @@ class ProblemService {
             .sort({ createdAt: -1 });
     }
 
-    // 👇 NEW: Update the status of a problem
     async updateProblemStatus(problemId, newStatus) {
-        // Find the problem and update it. 
         // runValidators: true ensures they can only pass 'Pending', 'In Progress', or 'Resolved'
         const problem = await Problem.findByIdAndUpdate(
             problemId,

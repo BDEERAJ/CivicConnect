@@ -1,6 +1,5 @@
 import { BrowserRouter as Router ,Routes,Route} from "react-router-dom";
 import Auth from "./AUTH/auth";
-import MainPage from "./navbar/navbar";
 import Problems from "./ProblemPage/problem";
 import Chat from "./chatLog/Chatlog";
 import ChatWindow from "./ChatOne-One/chat";

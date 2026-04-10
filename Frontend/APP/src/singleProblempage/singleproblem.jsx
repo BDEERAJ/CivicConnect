@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../navbar/navbar'; // Adjust path if needed
-import './singleproblem.css'; // Assuming you have a CSS file for styling
-// Uncomment the import below in your local code:
-// import Navbar from '../navbar/navbar';
-
-// Fallback Navbar to prevent compilation errors in this preview environment
-
-
+import Navbar from '../navbar/navbar'; 
+import './singleproblem.css'; 
 const ProblemDetails = () => {
   const { id } = useParams();
   const problemId = id; 
@@ -23,7 +17,6 @@ const ProblemDetails = () => {
   const token = localStorage.getItem('token');
   const myUserId = localStorage.getItem('userId');
 
-  // 1. Fetch Full Details from Node.js
   useEffect(() => {
     if (!problemId) {
         setError('No problem ID provided.');
@@ -36,7 +29,6 @@ const ProblemDetails = () => {
         const response = await axios.get(`https://civicconnect-m1vy.onrender.com/api/problems/${problemId}`);
         setProblem(response.data);
       } catch (err) {
-        console.error('Backend unavailable:', err);
         setError('Failed to load problem details. The server might be offline.');
       } finally {
         setLoading(false);
@@ -46,7 +38,6 @@ const ProblemDetails = () => {
     fetchSingleProblem();
   }, [problemId]);
 
-  // 2. Handle Upvote / Downvote
   const handleVote = async (type) => {
     if (!token) return alert('Please log in to vote.');
     
@@ -54,7 +45,6 @@ const ProblemDetails = () => {
     setProblem((prev) => {
       const updated = { ...prev };
       
-      // Initialize arrays if they don't exist
       if (!updated.upvotes) updated.upvotes = [];
       if (!updated.downvotes) updated.downvotes = [];
 

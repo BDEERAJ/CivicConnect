@@ -43,7 +43,6 @@ const ChatWindow = () => {
         console.log('Fetching contact info for:', contactId);
         // Always try to get contact name (doesn't require auth)
         const contactResponse = await axios.get(`https://civicconnect-m1vy.onrender.com/api/users/${contactId}`);
-        console.log('Contact response:', contactResponse.data);
         setContactName(contactResponse.data.username || 'Community Member');
         
         // Only fetch chat history if user is logged in
@@ -52,10 +51,8 @@ const ChatWindow = () => {
           const response = await axios.get(`https://civicconnect-m1vy.onrender.com/api/users/${contactId}/chat`, {
             headers: { Authorization: `Bearer ${token}` }
           });
-          console.log('Chat history response:', response.data);
           setMessages(response.data || []);
         } else {
-          console.log('No token, skipping chat history');
           setMessages([]);
         }
       } catch (err) {
@@ -96,14 +93,11 @@ const ChatWindow = () => {
 
     // Listen for transmission errors
     socketService.onMessageError((err) => {
-      console.error('Socket error:', err);
       setError(err.error || 'Failed to deliver your last message.');
     });
 
-    // Cleanup: In a real app, you might want to disconnect or remove listeners
-    // to prevent memory leaks if navigating away.
     return () => {
-      // socketService.disconnect(); // (Optional based on global vs local needs)
+       socketService.disconnect(); // (Optional based on global vs local needs)
     };
   }, [contactId, myUserId, token]);
 
@@ -120,9 +114,6 @@ const ChatWindow = () => {
     // Emit the message over the socket connection
     socketService.sendPrivateMessage(myUserId, contactId, newMessage);
     
-    // Clear the input box.
-    // Notice we do NOT append to the UI immediately here. 
-    // We wait for the 'onMessageSentSuccess' event to guarantee it was saved to the DB.
     setNewMessage(''); 
   };
 

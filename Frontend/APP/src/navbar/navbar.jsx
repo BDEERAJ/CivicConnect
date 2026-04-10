@@ -5,7 +5,6 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
 
-    // 👇 NEW: This hook automatically tracks the current URL
     const location = useLocation();
     const selected = location.pathname || 'home'; // This will be '/' by default (Home)
 
@@ -28,7 +27,6 @@ const Navbar = () => {
             <nav className="navbar navbar-expand-lg civic-nav-wrapper sticky-top py-3">
                 <div className="container">
 
-                    {/* Logo also acts as the Home button */}
                     <Link to="/" className="navbar-brand civic-nav-brand" onClick={closeMenu}>
                         <span>🌱</span> CivicConnect
                     </Link>
@@ -45,7 +43,6 @@ const Navbar = () => {
 
                         <ul className="navbar-nav mx-auto mb-2 mb-lg-0 civic-nav-middle">
                             <li className="nav-item">
-                                {/* 👇 Dynamic class applied based on current URL */}
                                 <Link
                                     to="/"
                                     className={`nav-link civic-nav-link ${selected === '/' ? 'is-active' : ''}`}
@@ -55,7 +52,6 @@ const Navbar = () => {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                {/* 👇 Dynamic class applied based on current URL */}
                                 <Link
                                     to="/problems"
                                     className={`nav-link civic-nav-link ${selected === '/problems' ? 'is-active' : ''}`}

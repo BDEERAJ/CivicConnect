@@ -45,8 +45,7 @@ const Auth = () => {
 
   return (
     <>
-      {/* 🎨 STRICTLY SCOPED CSS (No global tags like h3 or input allowed here) */}
-      {/* 🏗️ PREFIXED HTML STRUCTURE */}
+
       <div className="civic-auth-wrapper">
         <div className="civic-auth-panel">
           

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './profile.css'; // Assuming you have a CSS file for styling
-// Uncomment the import below in your local code:
+import './profile.css'; 
 import Navbar from '../navbar/navbar';
 
-// Fallback Navbar to prevent compilation errors in this preview environment
 
 
 const  ProfileContent = () => {
@@ -78,7 +76,6 @@ const  ProfileContent = () => {
 
           {!loading && !error && (
             <>
-              {/* Profile Header */}
               <div className="civic-profile-header-card">
                 <div className="civic-profile-avatar">
                   {userProfile?.username ? userProfile.username.charAt(0).toUpperCase() : 'U'}
@@ -147,7 +144,6 @@ const  ProfileContent = () => {
                           View Details
                         </Link>
                         
-                        {/* 👇 The Solve Button - only shows if the problem is not yet resolved */}
                         {problem.status !== 'Resolved' && (
                           <Link to={`/resolve/${problem._id}`} className="civic-solve-btn">
                             ✅ Solve / Update Status
