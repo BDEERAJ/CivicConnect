@@ -1,0 +1,83 @@
+        .civic-nav-wrapper {
+          background-color: #2B6CB0; /* Ocean Blue */
+          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+          font-family: 'Inter', system-ui, sans-serif;
+        }
+        .civic-nav-brand {
+          color: white !important;
+          font-size: 1.5rem;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        
+        .civic-nav-middle {
+          display: flex;
+          gap: 15px;
+          align-items: center;
+        }
+
+        .civic-nav-link {
+          color: #F7FAFC !important; /* Soft Oatmeal */
+          font-weight: 500;
+          font-size: 1.05rem;
+          transition: all 0.2s;
+          padding: 8px 16px !important;
+          border-radius: 6px;
+        }
+        .civic-nav-link:hover {
+          background-color: rgba(255, 255, 255, 0.1);
+          color: white !important;
+        }
+
+        /* 👇 NEW: Styling for the active tab */
+        .civic-nav-link.is-active {
+          background-color: rgba(255, 255, 255, 0.2);
+          color: white !important;
+          font-weight: bold;
+        }
+
+        .civic-nav-link-special {
+          background-color: #48BB78 !important; /* Sage Green */
+          color: white !important;
+          font-weight: bold;
+        }
+        .civic-nav-link-special:hover {
+          background-color: #38A169 !important;
+        }
+
+        .civic-nav-user-text {
+          color: #F7FAFC;
+          font-weight: bold;
+          margin-right: 15px;
+        }
+        
+        .civic-nav-btn-logout {
+          background-color: #ED8936 !important; /* Sunset Orange */
+          color: white !important;
+          font-weight: bold;
+          border: none;
+          padding: 8px 20px;
+          border-radius: 6px;
+          transition: background-color 0.2s;
+        }
+        .civic-nav-btn-logout:hover { background-color: #DD6B20 !important; }
+        
+        .civic-nav-btn-login {
+          background-color: white !important;
+          color: #2B6CB0 !important;
+          font-weight: bold;
+          border: none;
+          padding: 8px 24px;
+          border-radius: 6px;
+          transition: opacity 0.2s;
+        }
+        .civic-nav-btn-login:hover { opacity: 0.9; }
+
+        .navbar-toggler-icon {
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+        }
+        .navbar-toggler {
+          border-color: rgba(255,255,255,0.5) !important;
+        }

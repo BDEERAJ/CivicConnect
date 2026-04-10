@@ -1,0 +1,57 @@
+# =========================
+# Node.js & React (Frontend & Core API)
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# React production builds
+build/
+dist/
+
+# =========================
+# Python & FastAPI (AI Microservice)
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+
+# =========================
+# Environment Variables & Secrets (CRITICAL)
+# =========================
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.pem
+
+# =========================
+# OS Generated Files
+# =========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# =========================
+# Editor & IDE directories
+# =========================
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
