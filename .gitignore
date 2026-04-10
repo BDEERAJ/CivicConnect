@@ -9,8 +9,6 @@ yarn-error.log*
 
 # React production builds
 build/
-dist/
-
 # =========================
 # Python & FastAPI (AI Microservice)
 # =========================
