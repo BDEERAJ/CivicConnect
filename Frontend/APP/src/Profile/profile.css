@@ -1,0 +1,208 @@
+        .civic-profile-layout {
+          min-height: 100vh;
+          background-color: #F7FAFC;
+          font-family: 'Inter', system-ui, sans-serif;
+          padding-bottom: 60px;
+        }
+
+        .civic-profile-container {
+          max-width: 1000px;
+          margin: 40px auto;
+          padding: 0 20px;
+        }
+
+        /* --- Profile Header Card --- */
+        .civic-profile-header-card {
+          background-color: white;
+          border-radius: 16px;
+          padding: 40px;
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+          margin-bottom: 40px;
+          flex-wrap: wrap;
+        }
+        
+        .civic-profile-avatar {
+          width: 100px;
+          height: 100px;
+          background-color: #2B6CB0;
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 3rem;
+          font-weight: bold;
+          box-shadow: 0 4px 10px rgba(43, 108, 176, 0.3);
+        }
+
+        .civic-profile-info h1 {
+          margin: 0 0 5px 0;
+          color: #2D3748;
+          font-size: 2.2rem;
+          font-weight: 900;
+        }
+
+        .civic-profile-info p {
+          margin: 0;
+          color: #718096;
+          font-size: 1.1rem;
+        }
+
+        .civic-profile-stats {
+          margin-left: auto;
+          display: flex;
+          gap: 20px;
+          background-color: #F7FAFC;
+          padding: 15px 25px;
+          border-radius: 12px;
+          border: 1px solid #E2E8F0;
+        }
+
+        .civic-stat-box {
+          text-align: center;
+        }
+        .civic-stat-num {
+          display: block;
+          font-size: 1.8rem;
+          font-weight: 900;
+          color: #2B6CB0;
+        }
+        .civic-stat-label {
+          font-size: 0.85rem;
+          color: #718096;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        /* --- Submissions Section --- */
+        .civic-section-title {
+          font-size: 1.8rem;
+          color: #2D3748;
+          font-weight: 800;
+          margin-bottom: 20px;
+          border-bottom: 2px solid #E2E8F0;
+          padding-bottom: 10px;
+        }
+
+        .civic-problems-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .civic-problem-card {
+          background-color: white;
+          border-radius: 12px;
+          padding: 25px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+          display: flex;
+          flex-direction: column;
+          border-left: 5px solid #2B6CB0;
+          transition: transform 0.2s;
+        }
+        
+        .civic-problem-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .civic-card-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 15px;
+          flex-wrap: wrap;
+          gap: 15px;
+        }
+
+        .civic-card-title {
+          font-size: 1.4rem;
+          font-weight: bold;
+          color: #2D3748;
+          margin: 0 0 5px 0;
+          text-decoration: none;
+        }
+        .civic-card-title:hover {
+          color: #2B6CB0;
+        }
+
+        .civic-card-meta {
+          color: #A0AEC0;
+          font-size: 0.9rem;
+          display: flex;
+          gap: 15px;
+        }
+
+        .civic-badge {
+          padding: 6px 12px;
+          border-radius: 6px;
+          font-size: 0.85rem;
+          font-weight: bold;
+          color: white;
+        }
+        .civic-badge-pending { background-color: #ED8936; }
+        .civic-badge-inprogress { background-color: #D69E2E; }
+        .civic-badge-resolved { background-color: #48BB78; }
+
+        .civic-card-desc {
+          color: #4A5568;
+          line-height: 1.6;
+          margin-bottom: 20px;
+          font-size: 1rem;
+        }
+
+        .civic-card-actions {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: auto;
+          border-top: 1px solid #EDF2F7;
+          padding-top: 15px;
+        }
+
+        .civic-solve-btn {
+          background-color: #48BB78;
+          color: white;
+          padding: 10px 20px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: bold;
+          transition: background-color 0.2s;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .civic-solve-btn:hover {
+          background-color: #38A169;
+        }
+        
+        .civic-view-btn {
+          color: #2B6CB0;
+          font-weight: bold;
+          text-decoration: none;
+          padding: 10px 20px;
+          border-radius: 8px;
+          background-color: #EBF8FF;
+          transition: background-color 0.2s;
+        }
+        .civic-view-btn:hover {
+          background-color: #BEE3F8;
+        }
+
+        @media (max-width: 768px) {
+          .civic-profile-header-card {
+            flex-direction: column;
+            text-align: center;
+          }
+          .civic-profile-stats {
+            margin: 20px auto 0 auto;
+            width: 100%;
+            justify-content: center;
+          }
+          .civic-card-header {
+            flex-direction: column;
+          }
+        }

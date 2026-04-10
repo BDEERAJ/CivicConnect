@@ -25,8 +25,8 @@ const Auth = () => {
 
     try {
       const url = isLogin 
-        ? 'http://localhost:5000/api/auth/login' 
-        : 'http://localhost:5000/api/auth/register';
+        ? 'https://civicconnect-m1vy.onrender.com/api/auth/login' 
+        : 'https://civicconnect-m1vy.onrender.com/api/auth/register';
         
       const payload = isLogin ? { email, password } : { username, email, password };
 

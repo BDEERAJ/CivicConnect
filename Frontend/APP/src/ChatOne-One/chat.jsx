@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../navbar/navbar'; // Adjust path if needed
-// Mock socket service for preview environment compilation
+import Navbar from '../navbar/navbar'; 
 const socketService = {
   connect: () => {},
   registerUser: () => {},
@@ -16,7 +15,6 @@ const socketService = {
 
 
 const ChatWindow = () => {
-  // Grab contactId dynamically from the route (e.g., /chat/user_202)
   const { contactId } = useParams();
   
   const [messages, setMessages] = useState([]);
@@ -44,14 +42,14 @@ const ChatWindow = () => {
       try {
         console.log('Fetching contact info for:', contactId);
         // Always try to get contact name (doesn't require auth)
-        const contactResponse = await axios.get(`http://localhost:5000/api/users/${contactId}`);
+        const contactResponse = await axios.get(`https://civicconnect-m1vy.onrender.com/api/users/${contactId}`);
         console.log('Contact response:', contactResponse.data);
         setContactName(contactResponse.data.username || 'Community Member');
         
         // Only fetch chat history if user is logged in
         if (token) {
           console.log('Fetching chat history with token');
-          const response = await axios.get(`http://localhost:5000/api/users/${contactId}/chat`, {
+          const response = await axios.get(`https://civicconnect-m1vy.onrender.com/api/users/${contactId}/chat`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           console.log('Chat history response:', response.data);
@@ -130,151 +128,6 @@ const ChatWindow = () => {
 
   return (
     <>
-      <style>{`
-        .civic-chatwin-layout {
-          min-height: 100vh;
-          background-color: #F7FAFC; /* Soft Oatmeal */
-          font-family: 'Inter', system-ui, sans-serif;
-          display: flex;
-          height:fit-content;
-          flex-direction: column;
-        }
-        .civic-chatwin-container {
-          flex-grow: 1;
-          max-width: 95vw;
-          width: 100%;
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
-          background-color: white;
-          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-          height: calc(96vh - 70px); 
-        }
-
-        /* --- Header --- */
-        .civic-chatwin-header {
-          background-color: #2B6CB0; /* Ocean Blue */
-          color: white;
-          padding: 15px 20px;
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          border-bottom: 1px solid #1A365D;
-        }
-        .civic-chatwin-back-btn {
-          color: white;
-          text-decoration: none;
-          font-size: 1.2rem;
-          font-weight: bold;
-          transition: opacity 0.2s;
-        }
-        .civic-chatwin-back-btn:hover { opacity: 0.8; }
-        
-        .civic-chatwin-avatar {
-          width: 40px;
-          height: 40px;
-          background-color: white;
-          color: #2B6CB0;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-weight: bold;
-          font-size: 1.1rem;
-        }
-        .civic-chatwin-name {
-          font-size: 1.2rem;
-          font-weight: bold;
-          margin: 0;
-        }
-
-        /* --- Message Area --- */
-        .civic-chatwin-messages-area {
-          flex-grow: 1;
-          padding: 20px;
-          overflow-y: auto;
-          background-color: #F7FAFC;
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-        }
-
-        .civic-chatwin-bubble-wrapper {
-          display: flex;
-          flex-direction: column;
-          max-width: 75%;
-        }
-        .civic-chatwin-mine { align-self: flex-end; align-items: flex-end; }
-        .civic-chatwin-theirs { align-self: flex-start; align-items: flex-start; }
-
-        .civic-chatwin-bubble {
-          padding: 12px 16px;
-          border-radius: 18px;
-          font-size: 0.95rem;
-          line-height: 1.4;
-          position: relative;
-        }
-        .civic-chatwin-bubble.mine {
-          background-color: #2B6CB0; /* Ocean Blue */
-          color: white;
-          border-bottom-right-radius: 4px;
-        }
-        .civic-chatwin-bubble.theirs {
-          background-color: white;
-          color: #2D3748;
-          border-bottom-left-radius: 4px;
-          box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-
-        .civic-chatwin-time {
-          font-size: 0.7rem;
-          color: #A0AEC0;
-          margin-top: 4px;
-          margin-bottom: 0;
-        }
-
-        /* --- Input Area --- */
-        .civic-chatwin-input-area {
-          padding: 15px 20px;
-          background-color: white;
-          border-top: 1px solid #E2E8F0;
-        }
-        .civic-chatwin-form {
-          display: flex;
-          gap: 10px;
-        }
-        .civic-chatwin-input {
-          flex-grow: 1;
-          padding: 12px 15px;
-          border: 1px solid #E2E8F0;
-          border-radius: 25px;
-          font-size: 1rem;
-          outline: none;
-          transition: border-color 0.2s;
-          background-color: #F7FAFC;
-        }
-        .civic-chatwin-input:focus {
-          border-color: #2B6CB0;
-          background-color: white;
-        }
-        .civic-chatwin-send-btn {
-          background-color: #48BB78; /* Sage Green */
-          color: white;
-          border: none;
-          border-radius: 25px;
-          padding: 0 25px;
-          font-weight: bold;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: background-color 0.2s;
-        }
-        .civic-chatwin-send-btn:hover { background-color: #38A169; }
-        .civic-chatwin-send-btn:disabled {
-          background-color: #CBD5E0;
-          cursor: not-allowed;
-        }
-      `}</style>
-
       <div className="civic-chatwin-layout">
         <Navbar />
 

@@ -1,15 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, BrowserRouter, useLocation } from 'react-router-dom';
 import axios from 'axios';
-// Uncomment the import below in your local code:
-// import Navbar from '../navbar/navbar';
-
-// Fallback Navbar to prevent compilation errors in this preview environment
-const Navbar = () => (
-  <div style={{ padding: '15px 20px', background: '#2B6CB0', color: 'white', fontWeight: 'bold', textAlign: 'center' }}>
-    🌱 CivicConnect (Preview Navbar)
-  </div>
-);
+import Navbar from '../navbar/navbar';
+import './problem.css'; // Assuming you have a CSS file for styling
 
 const ProblemsContent = () => {
   const [problems, setProblems] = useState([]);
@@ -28,8 +21,8 @@ const ProblemsContent = () => {
     setError('');
     try {
       const url = city 
-        ? `http://localhost:5000/api/problems?location=${city}`
-        : `http://localhost:5000/api/problems`;
+        ? `https://civicconnect-m1vy.onrender.com/api/problems?location=${city}`
+        : `https://civicconnect-m1vy.onrender.com/api/problems`;
 
       const response = await axios.get(url);
       console.log("Fetched problems:", response.data);

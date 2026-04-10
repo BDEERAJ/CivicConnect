@@ -12,7 +12,7 @@ class SocketService {
   connect() {
     // Only connect if we don't already have an active socket
     if (!this.socket) {
-      this.socket = io('http://localhost:5000', {
+      this.socket = io('https://civicconnect-m1vy.onrender.com', {
         transports: ['websocket'], // Forces WebSockets for better performance
       });
 

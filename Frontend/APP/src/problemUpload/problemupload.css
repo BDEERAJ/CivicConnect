@@ -1,0 +1,211 @@
+        .civic-add-layout {
+          min-height: 100vh;
+          background-color: #F7FAFC; /* Soft Oatmeal */
+          font-family: 'Inter', system-ui, sans-serif;
+          padding-bottom: 50px;
+        }
+        
+        .civic-add-container {
+          width: 90%;
+          max-width: 800px;
+          margin: 40px auto;
+          background-color: white;
+          border-radius: 16px;
+          box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+          padding: 40px;
+        }
+
+        .civic-add-header {
+          margin-bottom: 30px;
+          text-align: center;
+        }
+        .civic-add-title {
+          color: #2B6CB0;
+          font-size: 2.2rem;
+          font-weight: 900;
+          margin: 0 0 10px 0;
+        }
+        .civic-add-subtitle {
+          color: #718096;
+          font-size: 1.1rem;
+          margin: 0;
+        }
+
+        .civic-add-form {
+          display: flex;
+          flex-direction: column;
+          gap: 25px;
+        }
+
+        /* --- Image Upload Area --- */
+        .civic-image-upload-area {
+          border: 2px dashed #CBD5E0;
+          border-radius: 12px;
+          padding: 30px;
+          text-align: center;
+          background-color: #F7FAFC;
+          cursor: pointer;
+          transition: all 0.2s;
+          position: relative;
+        }
+        .civic-image-upload-area:hover {
+          border-color: #2B6CB0;
+          background-color: #EBF8FF;
+        }
+        .civic-file-input {
+          position: absolute;
+          top: 0; left: 0; width: 100%; height: 100%;
+          opacity: 0;
+          cursor: pointer;
+        }
+        .civic-preview-img {
+          max-width: 100%;
+          max-height: 300px;
+          border-radius: 8px;
+          margin-top: 15px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        /* --- AI Loading Overlay --- */
+        .civic-ai-loading {
+          background-color: #EBF8FF;
+          color: #2B6CB0;
+          padding: 15px;
+          border-radius: 8px;
+          border: 1px solid #90CDF4;
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          font-weight: bold;
+          animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+          0% { opacity: 1; }
+          50% { opacity: 0.6; }
+          100% { opacity: 1; }
+        }
+
+        /* --- Form Fields --- */
+        .civic-form-group {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        .civic-form-label {
+          font-weight: bold;
+          color: #2D3748;
+          font-size: 0.95rem;
+        }
+        .civic-form-input, .civic-form-textarea, .civic-form-select {
+          width: 100%;
+          padding: 12px 15px;
+          border: 1px solid #E2E8F0;
+          border-radius: 8px;
+          font-size: 1rem;
+          outline: none;
+          transition: border-color 0.2s;
+          background-color: #F7FAFC;
+          box-sizing: border-box;
+          font-family: inherit;
+        }
+        .civic-form-input:focus, .civic-form-textarea:focus, .civic-form-select:focus {
+          border-color: #2B6CB0;
+          background-color: white;
+        }
+        .civic-form-textarea {
+          min-height: 120px;
+          resize: vertical;
+        }
+
+        /* Location Dropdown Styles */
+        .civic-location-dropdown {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: white;
+          border: 1px solid #E2E8F0;
+          border-radius: 8px;
+          margin-top: 5px;
+          box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+          z-index: 100;
+          max-height: 250px;
+          overflow-y: auto;
+        }
+        .civic-dropdown-item {
+          padding: 12px 15px;
+          cursor: pointer;
+          border-bottom: 1px solid #F7FAFC;
+          font-size: 0.9rem;
+          color: #4A5568;
+        }
+        .civic-dropdown-item:hover {
+          background-color: #F7FAFC;
+          color: #2B6CB0;
+        }
+
+        /* --- AI Insights Box --- */
+        .civic-ai-insights {
+          background-color: #F0FFF4;
+          border: 1px solid #9AE6B4;
+          padding: 15px;
+          border-radius: 8px;
+          margin-top: 10px;
+        }
+        .civic-ai-insights h4 {
+          color: #2F855A;
+          margin: 0 0 5px 0;
+          font-size: 0.95rem;
+          display: flex;
+          align-items: center;
+          gap: 5px;
+        }
+        .civic-ai-insights p {
+          margin: 0;
+          color: #276749;
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+
+        /* --- Submit Button --- */
+        .civic-submit-btn {
+          background-color: #48BB78; /* Sage Green */
+          color: white;
+          border: none;
+          padding: 16px;
+          border-radius: 8px;
+          font-weight: bold;
+          font-size: 1.1rem;
+          cursor: pointer;
+          transition: background-color 0.2s;
+          margin-top: 10px;
+        }
+        .civic-submit-btn:hover:not(:disabled) {
+          background-color: #38A169;
+        }
+        .civic-submit-btn:disabled {
+          background-color: #CBD5E0;
+          cursor: not-allowed;
+        }
+
+        .civic-error-msg {
+          background-color: #FFF5F5;
+          color: #C53030;
+          padding: 15px;
+          border-radius: 8px;
+          border: 1px solid #FEB2B2;
+          font-weight: bold;
+          text-align: center;
+        }
+        
+        .civic-form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+        }
+        
+        @media (max-width: 600px) {
+          .civic-form-row {
+            grid-template-columns: 1fr;
+          }
+        }

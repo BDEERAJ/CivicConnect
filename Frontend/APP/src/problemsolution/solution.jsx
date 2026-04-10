@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link, BrowserRouter } from 'react-router-dom';
 import axios from 'axios';
-
+import './solution.css'; // Assuming you have a CSS file for styling
 // Uncomment the import below in your local code:
-// import Navbar from '../navbar/navbar';
+import Navbar from '../navbar/navbar';
 
-// Fallback Navbar to prevent compilation errors in this preview environment
-const Navbar = () => (
-  <div style={{ padding: '15px 20px', background: '#2B6CB0', color: 'white', fontWeight: 'bold', textAlign: 'center' }}>
-    🌱 CivicConnect (Preview Navbar)
-  </div>
-);
 
 const ResolveProblemContent = () => {
   const { id } = useParams();
@@ -34,7 +28,7 @@ const ResolveProblemContent = () => {
   useEffect(() => {
     const fetchProblem = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/problems/${problemId}`);
+        const response = await axios.get(`https://civicconnect-m1vy.onrender.com/api/problems/${problemId}`);
         setProblem(response.data);
       } catch (err) {
         console.error('Failed to fetch problem:', err);
@@ -76,7 +70,7 @@ const ResolveProblemContent = () => {
     setAiResult(null);
 
     try {
-      const originalImageResponse = await fetch(`http://localhost:8000/api/images/${problemId}`);
+      const originalImageResponse = await fetch(`https://civicconnect-ai-service.onrender.com/api/images/${problemId}`);
       if (!originalImageResponse.ok) {
         throw new Error('Failed to load the original problem image from FastAPI.');
       }
@@ -92,7 +86,7 @@ const ResolveProblemContent = () => {
       formData.append('original_image', originalImageFile);
       formData.append('resolved_image', resolvedImageFile);
 
-      const response = await axios.post('http://localhost:8000/api/ai/verify-resolution', formData, {
+      const response = await axios.post('https://civicconnect-ai-service.onrender.com/api/ai/verify-resolution', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
@@ -126,7 +120,7 @@ const ResolveProblemContent = () => {
     setIsSubmitting(true);
     try {
       // Patch request to Node.js backend to update the status to 'Resolved'
-      await axios.patch(`http://localhost:5000/api/problems/${problemId}/status`, 
+      await axios.patch(`https://civicconnect-m1vy.onrender.com/api/problems/${problemId}/status`, 
         { status: 'Resolved' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -134,7 +128,7 @@ const ResolveProblemContent = () => {
       // (Optional) Save the resolved image proof to FastAPI under a valid filename.
       const formData = new FormData();
       formData.append('file', resolvedImageFile);
-      await axios.post(`http://localhost:8000/api/images/${problemId}-resolved`, formData, {
+      await axios.post(`https://civicconnect-ai-service.onrender.com/api/images/${problemId}-resolved`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       }).catch(e => console.log('Resolved image save skipped/failed', e));
 
@@ -150,191 +144,6 @@ const ResolveProblemContent = () => {
 
   return (
     <>
-      <style>{`
-        .civic-resolve-layout {
-          min-height: 100vh;
-          background-color: #F7FAFC;
-          font-family: 'Inter', system-ui, sans-serif;
-          padding-bottom: 60px;
-        }
-
-        .civic-resolve-container {
-          max-width: 1000px;
-          margin: 40px auto;
-          padding: 0 20px;
-        }
-
-        .civic-resolve-header {
-          margin-bottom: 30px;
-          text-align: center;
-        }
-        .civic-resolve-title {
-          color: #2B6CB0;
-          font-size: 2.2rem;
-          font-weight: 900;
-          margin: 0 0 10px 0;
-        }
-        .civic-resolve-subtitle {
-          color: #718096;
-          font-size: 1.1rem;
-          margin: 0;
-        }
-
-        .civic-resolve-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 30px;
-        }
-        @media (max-width: 768px) {
-          .civic-resolve-grid { grid-template-columns: 1fr; }
-        }
-
-        .civic-card {
-          background-color: white;
-          border-radius: 12px;
-          padding: 30px;
-          box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-          display: flex;
-          flex-direction: column;
-        }
-
-        .civic-card-heading {
-          font-size: 1.2rem;
-          color: #2D3748;
-          font-weight: bold;
-          margin: 0 0 15px 0;
-          border-bottom: 2px solid #E2E8F0;
-          padding-bottom: 10px;
-        }
-
-        /* --- Original Problem Styling --- */
-        .civic-orig-img-wrapper {
-          width: 100%;
-          height: 250px;
-          background-color: #EDF2F7;
-          border-radius: 8px;
-          overflow: hidden;
-          margin-bottom: 15px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .civic-orig-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-        .civic-problem-info h3 { margin: 0 0 5px 0; color: #2B6CB0; }
-        .civic-problem-info p { color: #4A5568; font-size: 0.95rem; line-height: 1.5; }
-
-        /* --- Upload Area --- */
-        .civic-image-upload-area {
-          border: 2px dashed #CBD5E0;
-          border-radius: 12px;
-          padding: 30px;
-          text-align: center;
-          background-color: #F7FAFC;
-          cursor: pointer;
-          transition: all 0.2s;
-          position: relative;
-          min-height: 150px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 20px;
-        }
-        .civic-image-upload-area:hover {
-          border-color: #48BB78;
-          background-color: #F0FFF4;
-        }
-        .civic-file-input {
-          position: absolute;
-          top: 0; left: 0; width: 100%; height: 100%;
-          opacity: 0;
-          cursor: pointer;
-        }
-        .civic-preview-img {
-          max-width: 100%;
-          max-height: 200px;
-          border-radius: 8px;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        /* --- AI Inspection Results --- */
-        .civic-ai-box {
-          border-radius: 8px;
-          padding: 20px;
-          margin-top: 20px;
-          border: 2px solid transparent;
-        }
-        .civic-ai-success {
-          background-color: #F0FFF4;
-          border-color: #48BB78;
-          color: #276749;
-        }
-        .civic-ai-fail {
-          background-color: #FFF5F5;
-          border-color: #F56565;
-          color: #9B2C2C;
-        }
-        .civic-ai-loading {
-          background-color: #EBF8FF;
-          border-color: #63B3ED;
-          color: #2B6CB0;
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          font-weight: bold;
-          animation: pulse 1.5s infinite;
-        }
-        @keyframes pulse {
-          0% { opacity: 1; }
-          50% { opacity: 0.6; }
-          100% { opacity: 1; }
-        }
-
-        /* --- Buttons --- */
-        .civic-btn {
-          width: 100%;
-          padding: 14px;
-          border-radius: 8px;
-          font-weight: bold;
-          font-size: 1.05rem;
-          cursor: pointer;
-          transition: background-color 0.2s;
-          border: none;
-          margin-top: 10px;
-        }
-        .civic-btn-verify {
-          background-color: #2B6CB0;
-          color: white;
-        }
-        .civic-btn-verify:hover:not(:disabled) { background-color: #22548A; }
-        
-        .civic-btn-submit {
-          background-color: #48BB78;
-          color: white;
-        }
-        .civic-btn-submit:hover:not(:disabled) { background-color: #38A169; }
-
-        .civic-btn:disabled {
-          background-color: #CBD5E0;
-          cursor: not-allowed;
-          color: #718096;
-        }
-        
-        .civic-error-msg {
-          color: #E53E3E;
-          background: #FFF5F5;
-          padding: 10px;
-          border-radius: 6px;
-          border: 1px solid #FEB2B2;
-          margin-bottom: 15px;
-          font-weight: bold;
-          text-align: center;
-        }
-      `}</style>
-
       <div className="civic-resolve-layout">
         <Navbar />
 
@@ -354,7 +163,7 @@ const ResolveProblemContent = () => {
                 <h2 className="civic-card-heading">Original Report</h2>
                 <div className="civic-orig-img-wrapper">
                   <img 
-                    src={`http://localhost:8000/api/images/${problem._id}`} 
+                    src={`https://civicconnect-ai-service.onrender.com/api/images/${problem._id}`} 
                     alt="Original Problem" 
                     className="civic-orig-img"
                     onError={(e) => {

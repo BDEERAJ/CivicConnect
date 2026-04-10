@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../navbar/navbar'; // Adjust path if needed
-
+import './singleproblem.css'; // Assuming you have a CSS file for styling
 // Uncomment the import below in your local code:
 // import Navbar from '../navbar/navbar';
 
@@ -33,7 +33,7 @@ const ProblemDetails = () => {
 
     const fetchSingleProblem = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/problems/${problemId}`);
+        const response = await axios.get(`https://civicconnect-m1vy.onrender.com/api/problems/${problemId}`);
         setProblem(response.data);
       } catch (err) {
         console.error('Backend unavailable:', err);
@@ -69,7 +69,7 @@ const ProblemDetails = () => {
     });
 
     try {
-      await axios.post(`http://localhost:5000/api/problems/${problemId}/${type}`, {}, {
+      await axios.post(`https://civicconnect-m1vy.onrender.com/api/problems/${problemId}/${type}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
     } catch (err) {
@@ -98,7 +98,7 @@ const ProblemDetails = () => {
     setCommentText('');
 
     try {
-      await axios.post(`http://localhost:5000/api/problems/${problemId}/comments`, 
+      await axios.post(`https://civicconnect-m1vy.onrender.com/api/problems/${problemId}/comments`, 
         { text: newComment.text }, 
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -110,239 +110,7 @@ const ProblemDetails = () => {
 
   return (
     <>
-      <style>{`
-        .civic-details-layout {
-          min-height: 100vh;
-          background-color: #F7FAFC; /* Soft Oatmeal */
-          font-family: 'Inter', system-ui, sans-serif;
-          padding-bottom: 50px;
-        }
-        
-        .civic-details-container {
-          width: 75vw; 
-          min-width: 320px;
-          max-width: 1000px; 
-          margin: 40px auto;
-          background-color: white;
-          border-radius: 16px;
-          box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-          overflow: hidden;
-        }
-
-        .civic-details-header {
-          padding: 30px 40px;
-          border-bottom: 1px solid #E2E8F0;
-        }
-        .civic-details-back-link {
-          display: inline-block;
-          color: #718096;
-          text-decoration: none;
-          font-weight: bold;
-          margin-bottom: 20px;
-          transition: color 0.2s;
-        }
-        .civic-details-back-link:hover { color: #2B6CB0; }
-
-        .civic-details-title {
-          color: #2B6CB0;
-          font-size: 2.5rem;
-          font-weight: 900;
-          margin: 0 0 15px 0;
-          line-height: 1.2;
-        }
-
-        .civic-details-meta-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 15px;
-        }
-
-        .civic-details-badge {
-          padding: 6px 12px;
-          border-radius: 6px;
-          font-size: 0.9rem;
-          font-weight: bold;
-          color: white;
-        }
-        .civic-details-badge-pending { background-color: #ED8936; } 
-        .civic-details-badge-resolved { background-color: #48BB78; } 
-        .civic-details-badge-inprogress { background-color: #D69E2E; } 
-        .civic-details-badge-location { background-color: #718096; }
-
-        /* 📸 Image fetched from FastAPI */
-        .civic-details-image-wrapper {
-          width: 100%;
-          background-color: #EDF2F7;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-bottom: 1px solid #E2E8F0;
-        }
-        .civic-details-image {
-          width: 100%;
-          max-height: 500px;
-          object-fit: contain; 
-        }
-
-        .civic-details-body {
-          padding: 30px 40px;
-        }
-
-        .civic-details-label {
-          font-size: 0.9rem;
-          text-transform: uppercase;
-          color: #A0AEC0;
-          font-weight: bold;
-          letter-spacing: 1px;
-          margin-bottom: 10px;
-        }
-
-        .civic-details-desc {
-          color: #4A5568;
-          font-size: 1.15rem;
-          line-height: 1.7;
-          margin: 0 0 30px 0;
-          white-space: pre-wrap; 
-        }
-
-        /* --- Actions Row (Votes & Chat) --- */
-        .civic-details-actions-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-top: 20px;
-          border-top: 1px solid #E2E8F0;
-          flex-wrap: wrap;
-          gap: 20px;
-        }
-
-        .civic-details-votes {
-          display: flex;
-          gap: 10px;
-        }
-        .civic-vote-btn {
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          padding: 10px 20px;
-          border-radius: 8px;
-          font-weight: bold;
-          font-size: 1.1rem;
-          cursor: pointer;
-          transition: all 0.2s;
-          border: 2px solid transparent;
-        }
-        .civic-btn-up {
-          background-color: #F0FFF4;
-          color: #48BB78;
-          border-color: #48BB78;
-        }
-        .civic-btn-up:hover { background-color: #48BB78; color: white; }
-        
-        .civic-btn-down {
-          background-color: #FFF5F5;
-          color: #E53E3E;
-          border-color: #E53E3E;
-        }
-        .civic-btn-down:hover { background-color: #E53E3E; color: white; }
-
-        .civic-details-author-box {
-          display: flex;
-          align-items: center;
-          gap: 15px;
-          background-color: #F7FAFC;
-          padding: 10px 20px;
-          border-radius: 10px;
-          border: 1px solid #E2E8F0;
-        }
-        .civic-author-icon {
-          background-color: #2B6CB0;
-          color: white;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          font-weight: bold;
-          font-size: 1.2rem;
-        }
-        .civic-chat-btn {
-          background-color: #2B6CB0;
-          color: white;
-          border: none;
-          padding: 8px 16px;
-          border-radius: 6px;
-          font-weight: bold;
-          text-decoration: none;
-          transition: background-color 0.2s;
-        }
-        .civic-chat-btn:hover { background-color: #22548A; }
-
-        /* --- Comments Section --- */
-        .civic-comments-section {
-          background-color: #F7FAFC;
-          padding: 30px 40px;
-          border-top: 1px solid #E2E8F0;
-        }
-        .civic-comments-header {
-          font-size: 1.4rem;
-          font-weight: bold;
-          color: #2D3748;
-          margin: 0 0 20px 0;
-        }
-        
-        .civic-comment-form {
-          display: flex;
-          gap: 15px;
-          margin-bottom: 30px;
-        }
-        .civic-comment-input {
-          flex-grow: 1;
-          padding: 12px 15px;
-          border: 1px solid #E2E8F0;
-          border-radius: 8px;
-          font-size: 1rem;
-          outline: none;
-        }
-        .civic-comment-input:focus { border-color: #2B6CB0; }
-        .civic-comment-submit {
-          background-color: #48BB78;
-          color: white;
-          border: none;
-          padding: 0 25px;
-          border-radius: 8px;
-          font-weight: bold;
-          cursor: pointer;
-        }
-        .civic-comment-submit:disabled { background-color: #CBD5E0; cursor: not-allowed; }
-
-        .civic-comment-list {
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-        }
-        .civic-comment-card {
-          background-color: white;
-          padding: 15px 20px;
-          border-radius: 8px;
-          border: 1px solid #E2E8F0;
-          box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-        .civic-comment-top {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 8px;
-          font-size: 0.9rem;
-        }
-        .civic-comment-user { font-weight: bold; color: #2B6CB0; }
-        .civic-comment-date { color: #A0AEC0; }
-        .civic-comment-text { margin: 0; color: #4A5568; line-height: 1.5; }
-
-      `}</style>
-
+     
       <div className="civic-details-layout">
         <Navbar />
 
@@ -381,7 +149,7 @@ const ProblemDetails = () => {
               {/* 📸 The Heavy FastAPI Image Section */}
               <div className="civic-details-image-wrapper">
                 <img 
-                  src={`http://localhost:8000/api/images/${problem._id}`} 
+                  src={`https://civicconnect-ai-service.onrender.com/api/images/${problem._id}`} 
                   alt={problem.title} 
                   className="civic-details-image"
                   onError={(e) => {
