@@ -4,7 +4,7 @@ import MainPage from "./navbar/navbar";
 import Problems from "./ProblemPage/problem";
 import Chat from "./chatLog/Chatlog";
 import ChatWindow from "./ChatOne-One/chat";
-import Singleproblempage from "./SingleProblemPage/singleproblem";
+import Singleproblempage from "./singleProblempage/singleproblem";
 import Feedback from "./feedback/feedback";
 import AddProblem from "./problemUpload/problemupload";
 import Profile from "./Profile/profile";
