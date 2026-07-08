@@ -2,7 +2,6 @@ import { io } from 'socket.io-client';
 
 class SocketService {
   constructor() {
-    // The single instance of the socket connection
     this.socket = null;
   }
 

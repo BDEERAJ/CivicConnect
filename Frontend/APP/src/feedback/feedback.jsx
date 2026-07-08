@@ -37,7 +37,7 @@ const Feedback = () => {
       }, 5000);
 
     } catch (error) {
-      console.error('Feedback submission failed:', error);
+
       setStatus('error');
       setErrorMessage(
         error.response?.data?.message || 'Failed to submit feedback. Our server might be down.'

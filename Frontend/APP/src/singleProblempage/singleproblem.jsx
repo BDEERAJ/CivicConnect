@@ -63,7 +63,7 @@ const ProblemDetails = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
     } catch (err) {
-      console.error('Vote failed', err);
+      // Vote failed silently
     }
   };
 
@@ -93,8 +93,7 @@ const ProblemDetails = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
     } catch (err) {
-      console.error('Comment failed', err);
-      // Optional: Handle reverting optimistic update here
+      // Comment failed silently
     }
   };
 

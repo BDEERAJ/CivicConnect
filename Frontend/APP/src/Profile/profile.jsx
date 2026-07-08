@@ -38,7 +38,6 @@ const  ProfileContent = () => {
 
         setMyProblems(problemsRes.data);
       } catch (err) {
-        console.error('Failed to load profile data:', err);
         setError('Failed to load profile data. The server might be offline or your session may have expired.');
       } finally {
         setLoading(false);

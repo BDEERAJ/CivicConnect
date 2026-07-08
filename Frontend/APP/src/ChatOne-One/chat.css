@@ -1,21 +1,26 @@
+        /* Reset body padding/margin that might break layout */
+        html, body {
+          margin: 0;
+          padding: 0;
+          height: 100%;
+        }
+
         .civic-chatwin-layout {
-          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          height: 100vh;
           background-color: #F7FAFC; /* Soft Oatmeal */
           font-family: 'Inter', system-ui, sans-serif;
-          display: flex;
-          height:fit-content;
-          flex-direction: column;
+          overflow: hidden;
         }
         .civic-chatwin-container {
-          flex-grow: 1;
-          max-width: 95vw;
-          width: 100%;
-          margin: 0 auto;
           display: flex;
           flex-direction: column;
+          flex: 1;
+          width: 100%;
           background-color: white;
           box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-          height: calc(96vh - 70px); 
+          overflow: hidden;
         }
 
         /* --- Header --- */
@@ -27,6 +32,8 @@
           align-items: center;
           gap: 15px;
           border-bottom: 1px solid #1A365D;
+          flex-shrink: 0;
+          min-height: 60px;
         }
         .civic-chatwin-back-btn {
           color: white;
@@ -57,9 +64,10 @@
 
         /* --- Message Area --- */
         .civic-chatwin-messages-area {
-          flex-grow: 1;
+          flex: 1;
           padding: 20px;
           overflow-y: auto;
+          overflow-x: hidden;
           background-color: #F7FAFC;
           display: flex;
           flex-direction: column;
@@ -105,6 +113,8 @@
           padding: 15px 20px;
           background-color: white;
           border-top: 1px solid #E2E8F0;
+          flex-shrink: 0;
+          min-height: 70px;
         }
         .civic-chatwin-form {
           display: flex;

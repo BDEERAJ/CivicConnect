@@ -34,4 +34,4 @@ app.get('/', (req, res) => res.send('Civic Platform API Running'));
 // Global Error Handler
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+server.listen(PORT, () => {});

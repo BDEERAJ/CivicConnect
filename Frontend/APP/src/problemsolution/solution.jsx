@@ -30,7 +30,6 @@ const ResolveProblemContent = () => {
         const response = await axios.get(`https://civicconnect-m1vy.onrender.com/api/problems/${problemId}`);
         setProblem(response.data);
       } catch (err) {
-        console.error('Failed to fetch problem:', err);
         // Preview fallback data
         setProblem({
           _id: problemId,
@@ -89,11 +88,10 @@ const ResolveProblemContent = () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
-      console.log('AI Verification Result:', response.data);
       setAiResult(response.data);
 
     } catch (err) {
-      console.error('Verification failed:', err);
+
       setError('Failed to verify with AI inspector. Please try again.');
       
       // Mocking AI response for preview environment testing if backend is offline
@@ -128,12 +126,12 @@ const ResolveProblemContent = () => {
       formData.append('file', resolvedImageFile);
       await axios.post(`https://civicconnect-ai-service.onrender.com/api/images/${problemId}-resolved`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
-      }).catch(e => console.log('Resolved image save skipped/failed', e));
+      });
 
       navigate('/profile');
 
     } catch (err) {
-      console.error('Failed to update status:', err);
+
       setError('Failed to mark problem as resolved.');
       setIsSubmitting(false);
     }

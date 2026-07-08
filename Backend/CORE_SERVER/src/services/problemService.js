@@ -10,7 +10,6 @@ class ProblemService {
     async getAllProblems(filters) {
         let query = {};
 
-        console.log('Filters received in service:', filters);
         if (filters.location) {
             query.location = filters.location; 
         }

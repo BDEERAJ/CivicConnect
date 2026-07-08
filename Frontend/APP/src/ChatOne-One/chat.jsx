@@ -1,17 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import './chat.css';  
 import Navbar from '../navbar/navbar'; 
-const socketService = {
-  connect: () => {},
-  registerUser: () => {},
-  onReceiveMessage: () => {},
-  onMessageSentSuccess: () => {},
-  onMessageError: () => {},
-  sendPrivateMessage: () => {},
-  disconnect: () => {}
-};
-
+import socketService from './socket';
 
 
 const ChatWindow = () => {
@@ -40,14 +32,12 @@ const ChatWindow = () => {
       setLoading(true);
       setError('');
       try {
-        console.log('Fetching contact info for:', contactId);
         // Always try to get contact name (doesn't require auth)
         const contactResponse = await axios.get(`https://civicconnect-m1vy.onrender.com/api/users/${contactId}`);
         setContactName(contactResponse.data.username || 'Community Member');
         
         // Only fetch chat history if user is logged in
         if (token) {
-          console.log('Fetching chat history with token');
           const response = await axios.get(`https://civicconnect-m1vy.onrender.com/api/users/${contactId}/chat`, {
             headers: { Authorization: `Bearer ${token}` }
           });
@@ -56,7 +46,6 @@ const ChatWindow = () => {
           setMessages([]);
         }
       } catch (err) {
-        console.error('Error loading chat:', err);
         setError('Could not load messages. The server might be down.');
         setContactName('Unknown');
         setMessages([]);
